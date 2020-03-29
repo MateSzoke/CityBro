@@ -9,7 +9,7 @@ class CityListModel @Inject constructor(
 
     fun load() = execute {
         viewState =
-            CityListReady(cityListPresenter.getData())
+            CityListReady(cityListPresenter.getAllCities())
     }
 
 }

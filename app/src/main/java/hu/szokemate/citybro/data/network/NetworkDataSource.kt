@@ -1,5 +1,6 @@
 package hu.szokemate.citybro.data.network
 
+import hu.szokemate.citybro.domain.model.CityBase
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
@@ -23,6 +24,11 @@ class NetworkDataSource @Inject constructor(
             Timber.d(e)
             return null
         }
+    }
+
+
+    suspend fun getAllCities(): List<CityBase>? {
+        return fetch { emptyList<CityBase>() }
     }
 
 }
