@@ -26,7 +26,6 @@ licenses:
   # White list all the licenses.
   - '.+'
 script:
-  - mv apikey.sample.properties apikey.properties
   - ./gradlew build check
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
