@@ -24,4 +24,9 @@ class RoomModule {
             .build()
     }
 
+    @Provides
+    @Singleton
+    fun provideCityDao(cityBroDatabase: CityBroDatabase) =
+        cityBroDatabase.cityDao()
+
 }
