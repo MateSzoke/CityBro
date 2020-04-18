@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class RoomCityBase(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
+    val urbanAreaId: String,
     val name: String,
     val imgUrl: String,
     val isFavorite: Boolean

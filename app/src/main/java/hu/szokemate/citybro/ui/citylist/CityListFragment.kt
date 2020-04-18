@@ -13,8 +13,9 @@ import hu.szokemate.citybro.ui.CityAdapter
 import hu.szokemate.citybro.ui.citydetails.CityDetailsFragment
 import hu.szokemate.citybro.util.extensions.trimmedText
 import kotlinx.android.synthetic.main.fragment_city_list.*
+import timber.log.Timber
 
-class CityListFragment : RainbowCakeFragment<CityListViewState, CityListModel>(),
+class CityListFragment : RainbowCakeFragment<CityListViewState, CityListViewModel>(),
     CityAdapter.Listener {
 
     private lateinit var cityAdapter: CityAdapter
@@ -44,10 +45,11 @@ class CityListFragment : RainbowCakeFragment<CityListViewState, CityListModel>()
     private fun showCityListReady(viewState: CityListReady) {
         cityListFragmentRoot.isVisible = true
         resultText.text = viewState.tmpResult
+        viewState.cities.forEach { Timber.d(it.toString()) }
     }
 
     override fun onCityClicked(city: CityBase) {
-        navigator?.add(CityDetailsFragment.newInstance(city.id))
+        navigator?.add(CityDetailsFragment.newInstance(city.urbanAreaId))
     }
 
 }

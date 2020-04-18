@@ -5,7 +5,7 @@ import android.view.View
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.extensions.applyArgs
-import co.zsmb.rainbowcake.navigation.extensions.requireLong
+import co.zsmb.rainbowcake.navigation.extensions.requireString
 import hu.szokemate.citybro.R
 
 class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetailsViewModel> {
@@ -25,17 +25,17 @@ class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetail
         private const val CITY_ID = "SOME_ID"
 
         @Suppress("DEPRECATION")
-        fun newInstance(cityId: Long): CityDetailsFragment {
+        fun newInstance(cityId: String): CityDetailsFragment {
             return CityDetailsFragment().applyArgs {
-                putLong(CITY_ID, cityId)
+                putString(CITY_ID, cityId)
             }
         }
     }
 
-    private var cityId: Long = 0
+    private var cityId: String = ""
 
     private fun initArguments() {
-        cityId = requireArguments().requireLong(CITY_ID)
+        cityId = requireArguments().requireString(CITY_ID)
     }
 
     //endregion

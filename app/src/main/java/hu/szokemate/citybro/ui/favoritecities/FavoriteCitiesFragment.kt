@@ -35,7 +35,7 @@ class FavoriteCitiesFragment :
     }
 
     override fun onCityClicked(city: CityBase) {
-        navigator?.add(CityDetailsFragment.newInstance(city.id))
+        navigator?.add(CityDetailsFragment.newInstance(city.urbanAreaId))
     }
 
 }

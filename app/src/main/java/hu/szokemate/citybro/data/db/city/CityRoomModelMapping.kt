@@ -5,6 +5,7 @@ import hu.szokemate.citybro.domain.model.CityBase
 fun RoomCityBase.toDomainModel(): CityBase {
     return CityBase(
         id = id,
+        urbanAreaId = urbanAreaId,
         name = name,
         imgUrl = imgUrl,
         isFavorite = isFavorite
@@ -13,7 +14,8 @@ fun RoomCityBase.toDomainModel(): CityBase {
 
 fun CityBase.toRoomModel(): RoomCityBase {
     return RoomCityBase(
-        id = id,
+        id = id!!,
+        urbanAreaId = urbanAreaId,
         name = name,
         imgUrl = imgUrl,
         isFavorite = isFavorite

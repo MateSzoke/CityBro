@@ -16,6 +16,7 @@ class NetworkModule {
 
     companion object {
         private const val TELEPORT_API_BASE_URL = "https://api.teleport.org/api/"
+        const val BASE_URL_LENGTH = TELEPORT_API_BASE_URL.length
     }
 
     @Provides

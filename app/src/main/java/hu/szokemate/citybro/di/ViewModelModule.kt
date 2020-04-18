@@ -6,7 +6,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import hu.szokemate.citybro.ui.citydetails.CityDetailsViewModel
-import hu.szokemate.citybro.ui.citylist.CityListModel
+import hu.szokemate.citybro.ui.citylist.CityListViewModel
 import hu.szokemate.citybro.ui.favoritecities.FavoriteCitiesViewModel
 import hu.szokemate.citybro.ui.lifequality.LifeQualityViewModel
 
@@ -16,8 +16,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(CityListModel::class)
-    abstract fun cityListViewModel(cityListModel: CityListModel): ViewModel
+    @ViewModelKey(CityListViewModel::class)
+    abstract fun cityListViewModel(cityListModel: CityListViewModel): ViewModel
 
     @Binds
     @IntoMap

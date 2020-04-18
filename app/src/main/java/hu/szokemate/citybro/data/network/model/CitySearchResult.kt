@@ -7,9 +7,7 @@ import com.squareup.moshi.JsonClass
 data class CitySearchResult(
     val count: Int,
     @Json(name = "_embedded")
-    val result: EmbeddedCityResult,
-    @Json(name = "_links")
-    val links: Link2
+    val result: EmbeddedCityResult
 )
 
 @JsonClass(generateAdapter = true)
