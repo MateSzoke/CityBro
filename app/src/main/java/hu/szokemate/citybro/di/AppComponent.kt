@@ -6,6 +6,7 @@ import dagger.Component
 import hu.szokemate.citybro.CityBroApplication
 import hu.szokemate.citybro.data.db.RoomModule
 import hu.szokemate.citybro.data.network.NetworkModule
+import hu.szokemate.citybro.util.glide.CustomGlideModule
 import javax.inject.Singleton
 
 
@@ -22,5 +23,7 @@ import javax.inject.Singleton
 interface AppComponent : RainbowCakeComponent {
 
     fun inject(cityBroApplication: CityBroApplication)
+
+    fun inject(customGlideModule: CustomGlideModule)
 
 }
