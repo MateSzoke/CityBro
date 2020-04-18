@@ -13,4 +13,8 @@ class CityInteractor @Inject constructor(
     suspend fun getAllCities(): List<CityBase> {
         return networkDataSource.getAllCities() ?: diskDataSource.getAllCities()
     }
+
+    suspend fun getCityBySearch(citySearch: String): String? {
+        return networkDataSource.getCityBySearch(citySearch).toString()
+    }
 }

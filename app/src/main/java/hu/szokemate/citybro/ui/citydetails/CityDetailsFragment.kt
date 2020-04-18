@@ -5,7 +5,7 @@ import android.view.View
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.extensions.applyArgs
-import co.zsmb.rainbowcake.extensions.requireLong
+import co.zsmb.rainbowcake.navigation.extensions.requireLong
 import hu.szokemate.citybro.R
 
 class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetailsViewModel> {

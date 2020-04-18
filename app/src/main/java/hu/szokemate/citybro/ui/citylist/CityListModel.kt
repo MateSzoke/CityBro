@@ -9,7 +9,13 @@ class CityListModel @Inject constructor(
 
     fun load() = execute {
         viewState =
-            CityListReady(cityListPresenter.getAllCities())
+            CityListReady(cityListPresenter.getAllCities(), "No result")
+    }
+
+    fun searchCity(citySearch: String) = execute {
+        val state = viewState as? CityListReady ?: return@execute
+        val result = cityListPresenter.getCityBySearch(citySearch)
+        viewState = state.copy(tmpResult = result)
     }
 
 }

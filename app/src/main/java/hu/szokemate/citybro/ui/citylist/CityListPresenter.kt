@@ -13,4 +13,8 @@ class CityListPresenter @Inject constructor(
         cityInteractor.getAllCities()
     }
 
+    suspend fun getCityBySearch(citySearch: String): String = withIOContext {
+        cityInteractor.getCityBySearch(citySearch) ?: "No result :'("
+    }
+
 }

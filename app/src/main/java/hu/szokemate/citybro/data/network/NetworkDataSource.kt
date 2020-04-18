@@ -1,5 +1,6 @@
 package hu.szokemate.citybro.data.network
 
+import hu.szokemate.citybro.data.network.model.CitySearchResult
 import hu.szokemate.citybro.domain.model.CityBase
 import retrofit2.HttpException
 import timber.log.Timber
@@ -9,7 +10,7 @@ import javax.inject.Singleton
 
 @Singleton
 class NetworkDataSource @Inject constructor(
-    private val serviceManagerAPI: TeleportAPI
+    private val teleportAPI: TeleportAPI
 ) {
 
     private inline fun <reified T> fetch(action: () -> T?): T? {
@@ -29,6 +30,10 @@ class NetworkDataSource @Inject constructor(
 
     suspend fun getAllCities(): List<CityBase>? {
         return fetch { emptyList<CityBase>() }
+    }
+
+    suspend fun getCityBySearch(query: String): CitySearchResult? {
+        return fetch { teleportAPI.getCityBySearch(query) }
     }
 
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CityBro</string>
+    <string name="city_search_button">Search</string>
 </resources>
