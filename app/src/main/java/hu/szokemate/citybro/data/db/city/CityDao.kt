@@ -13,16 +13,16 @@ interface CityDao {
     fun getAllCities(): List<RoomCityBase>
 
     @Query("SELECT * FROM city_base WHERE urbanAreaId = :urbanAreaId")
-    fun getCityBaseByUrbanAreaId(urbanAreaId: String): RoomCityBase
+    fun getCityBaseByUrbanAreaId(urbanAreaId: String): RoomCityBase?
 
     @Query("SELECT * FROM city_details WHERE urbanAreaId = :urbanAreaId")
-    fun getCityDetailsByUrbanAreaId(urbanAreaId: String): RoomCityDetails
+    fun getCityDetailsByUrbanAreaId(urbanAreaId: String): RoomCityDetails?
 
     @Query("SELECT * FROM city_base WHERE isFavorite = 1")
     fun getFavoriteCities(): List<RoomCityBase>
 
     @Query("SELECT * FROM score_data WHERE cityDetailsId = :cityDetailsId")
-    fun getScoreDataByCityDetailsId(cityDetailsId: UUID): RoomScoreData
+    fun getScoreDataByCityDetailsId(cityDetailsId: UUID): RoomScoreData?
 
     @Query("SELECT * FROM score WHERE scoreDataId = :scoreDataId")
     fun getScoresByScoreDataId(scoreDataId: Long): List<RoomScore>
@@ -32,6 +32,12 @@ interface CityDao {
 
     @Insert(onConflict = REPLACE)
     fun addCityDetails(cityDetails: RoomCityDetails)
+
+    @Insert(onConflict = REPLACE)
+    fun addScoreData(roomScoreData: RoomScoreData): Long
+
+    @Insert(onConflict = REPLACE)
+    fun addScore(roomScore: RoomScore): Long
 
     @Query("UPDATE city_base SET isFavorite = :isFavorite WHERE urbanAreaId= :urbanAreaId")
     fun setCityFavorite(urbanAreaId: String, isFavorite: Boolean)

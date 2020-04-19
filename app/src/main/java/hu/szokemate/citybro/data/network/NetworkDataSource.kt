@@ -43,20 +43,17 @@ class NetworkDataSource @Inject constructor(
             val geoNameIds =
                 citySearchResult.result.searchResults.map { it.geoNameId }
             geoNameIds.map { id ->
-                val cityResult = teleportAPI.getCityByGeoNameId(id)
-                val urbanAreaId = cityResult.urbanAreaId
-                val imgUrl =
-                    if (urbanAreaId.isNotEmpty()) teleportAPI.getCityImages(urbanAreaId).photos.first().image.web else ""
-                cityResult.toDomainModel(urbanAreaId = urbanAreaId, imgUrl = imgUrl)
+                teleportAPI.getCityByGeoNameId(id).toCityBase()
             }
         }
     }
 
-    suspend fun getCityBySearch(query: String, limit: Int = 1): NetworkCityResult? {
+    suspend fun getCityBySearch(query: String, limit: Int = 1): CityBase? {
         return fetch {
             val citySearchResult = teleportAPI.getCityBySearch(query, limit)
             if (citySearchResult.result.searchResults.isEmpty()) return null
             teleportAPI.getCityByGeoNameId(citySearchResult.result.searchResults.first().geoNameId)
+                .toCityBase()
         } ?: return null
     }
 
@@ -86,6 +83,12 @@ class NetworkDataSource @Inject constructor(
                 scores = scores.toDomainModel()
             )
         }
+    }
+
+    private suspend fun NetworkCityResult.toCityBase(): CityBase {
+        val imgUrl =
+            if (urbanAreaId.isNotEmpty()) teleportAPI.getCityImages(urbanAreaId).photos.first().image.web else ""
+        return toDomainModel(urbanAreaId = urbanAreaId, imgUrl = imgUrl)
     }
 
     private val NetworkSearchResult.geoNameId: String
