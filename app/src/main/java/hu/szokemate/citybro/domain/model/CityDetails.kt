@@ -9,7 +9,6 @@ data class CityDetails(
     val imgUrls: List<String>,
     val isFavorite: Boolean,
     val population: Int,
-    val country: String,
     val mayor: String,
     val latitude: Double,
     val longitude: Double,

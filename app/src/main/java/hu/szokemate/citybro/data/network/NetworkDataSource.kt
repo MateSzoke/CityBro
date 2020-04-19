@@ -71,7 +71,7 @@ class NetworkDataSource @Inject constructor(
             val cityResult = teleportAPI.getCityByGeoNameId(geoNameId)
             val images = teleportAPI.getCityImages(urbanAreaId).photos.map { it.image.web }
             val scores = teleportAPI.getCityScores(urbanAreaId)
-            val details = teleportAPI.getCityDetails(urbanAreaId)
+            val details = teleportAPI.getCityDetails(urbanAreaId).categories.flatMap { it.data }
             CityDetails(
                 id = UUID.randomUUID(),
                 urbanAreaId = urbanAreaId,
@@ -79,13 +79,10 @@ class NetworkDataSource @Inject constructor(
                 imgUrls = images,
                 isFavorite = false,
                 population = cityResult.population,
-                //country = urbanArea.links.country.name,
-                country = urbanArea.fullName,
                 mayor = urbanArea.mayor,
                 latitude = cityResult.location.latlon.latitude,
                 longitude = cityResult.location.latlon.longitude,
-                currency = details.categories.flatMap { it.data }
-                    .first { it.id == CURRENCY_DATA_ID }.stringValue,
+                currency = details.first { it.id == CURRENCY_DATA_ID }.stringValue,
                 scores = scores.toDomainModel()
             )
         }
