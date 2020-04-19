@@ -76,7 +76,7 @@ class NetworkDataSource @Inject constructor(
                 id = UUID.randomUUID(),
                 urbanAreaId = urbanAreaId,
                 fullName = urbanArea.fullName,
-                imgUrls = image,
+                imgUrl = image,
                 isFavorite = false,
                 population = cityResult.population,
                 mayor = urbanArea.mayor,

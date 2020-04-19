@@ -17,4 +17,5 @@ constructor(
         return cityDao.getAllCities().map { it.toDomainModel() }
     }
 
+
 }

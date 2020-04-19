@@ -6,6 +6,7 @@ data class ScoreData(
 )
 
 data class Score(
+    val id: Long? = null,
     val color: String,
     val name: String,
     val value: Double

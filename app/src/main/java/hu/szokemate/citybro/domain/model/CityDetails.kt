@@ -6,7 +6,7 @@ data class CityDetails(
     val id: UUID,
     val urbanAreaId: String,
     val fullName: String,
-    val imgUrls: String,
+    val imgUrl: String,
     val isFavorite: Boolean,
     val population: Int,
     val mayor: String,
