@@ -14,7 +14,7 @@ fun RoomCityBase.toDomainModel(): CityBase {
 
 fun CityBase.toRoomModel(): RoomCityBase {
     return RoomCityBase(
-        id = id!!,
+        id = id,
         urbanAreaId = urbanAreaId,
         name = name,
         imgUrl = imgUrl,

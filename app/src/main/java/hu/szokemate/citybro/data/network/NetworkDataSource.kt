@@ -1,12 +1,14 @@
 package hu.szokemate.citybro.data.network
 
 import hu.szokemate.citybro.data.network.model.CityResult
-import hu.szokemate.citybro.data.network.model.ScoreResponse
+import hu.szokemate.citybro.data.network.model.SearchResult
 import hu.szokemate.citybro.domain.mapping.toDomainModel
 import hu.szokemate.citybro.domain.model.CityBase
+import hu.szokemate.citybro.domain.model.CityDetails
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,6 +16,10 @@ import javax.inject.Singleton
 class NetworkDataSource @Inject constructor(
     private val teleportAPI: TeleportAPI
 ) {
+
+    companion object {
+        const val CURRENCY_DATA_ID = "CURRENCY-URBAN-AREA"
+    }
 
     private inline fun <reified T> fetch(action: () -> T?): T? {
         return try {
@@ -35,15 +41,13 @@ class NetworkDataSource @Inject constructor(
             val citySearchResult = teleportAPI.getCityBySearch("", limit)
             if (citySearchResult.result.searchResults.isEmpty()) return null
             val geoNameIds =
-                citySearchResult.result.searchResults.map { it.links.cityItem.href.substringAfter("cities/") }
+                citySearchResult.result.searchResults.map { it.geoNameId }
             geoNameIds.map { id ->
                 val cityResult = teleportAPI.getCityByGeoNameId(id)
-                val urbanAreaId =
-                    cityResult.links.urbanAreaLink?.href?.substringAfter("urban_areas/")
-                        ?.dropLast(1)
+                val urbanAreaId = cityResult.urbanAreaId
                 val imgUrl =
-                    if (urbanAreaId != null) teleportAPI.getCityImages(urbanAreaId).photos[0].image.web else ""
-                cityResult.toDomainModel(urbanAreaId = urbanAreaId ?: "", imgUrl = imgUrl)
+                    if (urbanAreaId.isEmpty()) teleportAPI.getCityImages(urbanAreaId).photos[0].image.web else ""
+                cityResult.toDomainModel(urbanAreaId = urbanAreaId, imgUrl = imgUrl)
             }
         }
     }
@@ -52,14 +56,43 @@ class NetworkDataSource @Inject constructor(
         return fetch {
             val citySearchResult = teleportAPI.getCityBySearch(query, limit)
             if (citySearchResult.result.searchResults.isEmpty()) return null
-            val geoNameId =
-                citySearchResult.result.searchResults[0].links.cityItem.href.substringAfter("cities/")
-            teleportAPI.getCityByGeoNameId(geoNameId)
+            teleportAPI.getCityByGeoNameId(citySearchResult.result.searchResults.first().geoNameId)
         } ?: return null
     }
 
-    suspend fun getCityScores(urbanAreaId: String): ScoreResponse? {
-        return fetch { teleportAPI.getCityScores(urbanAreaId) }
+    suspend fun getCityDetails(urbanAreaId: String): CityDetails? {
+        return fetch {
+            val details = teleportAPI.getCityDetails(urbanAreaId)
+            val urbanArea = teleportAPI.getUrbanAreaInformation(urbanAreaId)
+            val geoNameId = teleportAPI.getCityBySearch(
+                search = urbanArea.name,
+                limit = 1
+            ).result.searchResults.first().geoNameId
+            val cityResult = teleportAPI.getCityByGeoNameId(geoNameId)
+            val images = teleportAPI.getCityImages(urbanAreaId).photos.map { it.image.web }
+            val scores = teleportAPI.getCityScores(urbanAreaId)
+            CityDetails(
+                id = UUID.randomUUID(),
+                urbanAreaId = urbanAreaId,
+                fullName = urbanArea.fullName,
+                imgUrls = images,
+                isFavorite = false,
+                population = cityResult.population,
+                country = urbanArea.links.country.name,
+                mayor = urbanArea.mayor,
+                latitude = cityResult.location.latlon.latitude,
+                longitude = cityResult.location.latlon.longitude,
+                currency = details.categories.flatMap { it.data }
+                    .first { it.id == CURRENCY_DATA_ID }.stringValue,
+                scores = scores.toDomainModel()
+            )
+        }
     }
 
+    private val SearchResult.geoNameId: String
+        get() = links.cityItem.href.substringAfter("cities/")
+
+    private val CityResult.urbanAreaId: String
+        get() = links.urbanAreaLink?.href?.substringAfter("urban_areas/")
+            ?.dropLast(1) ?: ""
 }

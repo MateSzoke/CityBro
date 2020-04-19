@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import hu.szokemate.citybro.data.db.city.CityDao
 import hu.szokemate.citybro.data.db.city.RoomCityBase
+import hu.szokemate.citybro.data.db.converters.CommonConverters
 
 @Database(
     exportSchema = false,
@@ -13,7 +14,9 @@ import hu.szokemate.citybro.data.db.city.RoomCityBase
         RoomCityBase::class
     ]
 )
-@TypeConverters()
+@TypeConverters(
+    CommonConverters::class
+)
 abstract class CityBroDatabase : RoomDatabase() {
 
     abstract fun cityDao(): CityDao

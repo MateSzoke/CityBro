@@ -1,7 +1,9 @@
 package hu.szokemate.citybro.domain.model
 
+import java.util.*
+
 data class CityBase(
-    val id: Long? = null,
+    val id: UUID,
     val urbanAreaId: String,
     val name: String,
     val imgUrl: String,
