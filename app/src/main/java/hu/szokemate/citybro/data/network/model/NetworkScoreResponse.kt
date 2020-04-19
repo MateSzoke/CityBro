@@ -4,13 +4,13 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class ScoreResponse(
-    val categories: List<Score>,
+class NetworkScoreResponse(
+    val categories: List<NetworkScore>,
     val summary: String
 )
 
 @JsonClass(generateAdapter = true)
-data class Score(
+class NetworkScore(
     val color: String,
     val name: String,
     @Json(name = "score_out_of_10")

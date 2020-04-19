@@ -4,52 +4,52 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CitySearchResult(
+class NetworkCitySearchResult(
     val count: Int,
     @Json(name = "_embedded")
-    val result: EmbeddedCityResult
+    val result: NetworkEmbeddedCityResult
 )
 
 @JsonClass(generateAdapter = true)
-data class EmbeddedCityResult(
+class NetworkEmbeddedCityResult(
     @Json(name = "city:search-results")
-    val searchResults: List<SearchResult>
+    val searchResults: List<NetworkSearchResult>
 )
 
 @JsonClass(generateAdapter = true)
-data class SearchResult(
+class NetworkSearchResult(
     @Json(name = "_links")
-    val links: Link,
+    val links: NetworkLink,
     @Json(name = "matching_alternate_names")
-    val alternativeNames: List<AlternativeName>,
+    val alternativeNames: List<NetworkAlternativeName>,
     @Json(name = "matching_full_name")
     val fullName: String
 )
 
 @JsonClass(generateAdapter = true)
-data class Link(
+class NetworkLink(
     @Json(name = "city:item")
-    val cityItem: Href
+    val cityItem: NetworkHref
 )
 
 @JsonClass(generateAdapter = true)
-data class Href(
+class NetworkHref(
     val href: String
 )
 
 @JsonClass(generateAdapter = true)
-data class AlternativeName(
+class NetworkAlternativeName(
     val name: String
 )
 
 @JsonClass(generateAdapter = true)
-data class Link2(
-    val curies: List<Curie>,
-    val self: Href
+class NetworkLink2(
+    val curies: List<NetworkCurie>,
+    val self: NetworkHref
 )
 
 @JsonClass(generateAdapter = true)
-data class Curie(
+class NetworkCurie(
     val href: String,
     val name: String,
     val templated: Boolean

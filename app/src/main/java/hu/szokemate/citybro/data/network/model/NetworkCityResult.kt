@@ -4,38 +4,38 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CityResult(
+class NetworkCityResult(
     val name: String,
     val population: Int,
-    val location: Location,
+    val location: NetworkLocation,
     @Json(name = "geoname_id")
     val geoNameId: Int,
     @Json(name = "full_name")
     val fullName: String,
     @Json(name = "_links")
-    val links: Links
+    val links: NetworkLinks
 )
 
 @JsonClass(generateAdapter = true)
-data class Location(
+class NetworkLocation(
     val geohash: String,
-    val latlon: LatLon
+    val latlon: NetworkLatLon
 )
 
 @JsonClass(generateAdapter = true)
-data class LatLon(
+class NetworkLatLon(
     val latitude: Double,
     val longitude: Double
 )
 
 @JsonClass(generateAdapter = true)
-data class Links(
+class NetworkLinks(
     @Json(name = "city:urban_area")
-    val urbanAreaLink: LinkHref?
+    val urbanAreaLink: NetworkLinkHref?
 )
 
 @JsonClass(generateAdapter = true)
-data class LinkHref(
+class NetworkLinkHref(
     val href: String,
     val name: String
 )

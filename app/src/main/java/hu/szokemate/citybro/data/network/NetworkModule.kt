@@ -4,7 +4,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
-import hu.szokemate.citybro.data.network.model.UrbanAreaDetailDataPoint
+import hu.szokemate.citybro.data.network.model.NetworkUrbanAreaDetailDataPoint
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
@@ -42,7 +42,7 @@ class NetworkModule {
             MoshiConverterFactory.create(
                 Moshi.Builder().add(
                     DefaultOnDataMismatchAdapter.newFactory(
-                        type = UrbanAreaDetailDataPoint::class.java, defaultValue = null
+                        type = NetworkUrbanAreaDetailDataPoint::class.java, defaultValue = null
                     )
                 ).build()
             )

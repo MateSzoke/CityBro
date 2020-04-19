@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class UrbanArea(
+data class NetworkUrbanArea(
     @Json(name = "full_name")
     val fullName: String,
     val name: String,

@@ -1,7 +1,7 @@
 package hu.szokemate.citybro.data.network
 
-import hu.szokemate.citybro.data.network.model.CityResult
-import hu.szokemate.citybro.data.network.model.SearchResult
+import hu.szokemate.citybro.data.network.model.NetworkCityResult
+import hu.szokemate.citybro.data.network.model.NetworkSearchResult
 import hu.szokemate.citybro.domain.mapping.toDomainModel
 import hu.szokemate.citybro.domain.model.CityBase
 import hu.szokemate.citybro.domain.model.CityDetails
@@ -52,7 +52,7 @@ class NetworkDataSource @Inject constructor(
         }
     }
 
-    suspend fun getCityBySearch(query: String, limit: Int = 1): CityResult? {
+    suspend fun getCityBySearch(query: String, limit: Int = 1): NetworkCityResult? {
         return fetch {
             val citySearchResult = teleportAPI.getCityBySearch(query, limit)
             if (citySearchResult.result.searchResults.isEmpty()) return null
@@ -88,10 +88,10 @@ class NetworkDataSource @Inject constructor(
         }
     }
 
-    private val SearchResult.geoNameId: String
+    private val NetworkSearchResult.geoNameId: String
         get() = links.cityItem.href.substringAfter("cities/")
 
-    private val CityResult.urbanAreaId: String
+    private val NetworkCityResult.urbanAreaId: String
         get() = links.urbanAreaLink?.href?.substringAfter("urban_areas/")
             ?.dropLast(1) ?: ""
 }

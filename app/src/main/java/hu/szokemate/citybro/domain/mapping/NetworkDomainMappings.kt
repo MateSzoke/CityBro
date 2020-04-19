@@ -1,14 +1,14 @@
 package hu.szokemate.citybro.domain.mapping
 
-import hu.szokemate.citybro.data.network.model.CityResult
-import hu.szokemate.citybro.data.network.model.ScoreResponse
+import hu.szokemate.citybro.data.network.model.NetworkCityResult
+import hu.szokemate.citybro.data.network.model.NetworkScore
+import hu.szokemate.citybro.data.network.model.NetworkScoreResponse
 import hu.szokemate.citybro.domain.model.CityBase
 import hu.szokemate.citybro.domain.model.Score
 import hu.szokemate.citybro.domain.model.ScoreData
 import java.util.*
-import hu.szokemate.citybro.data.network.model.Score as NetworkScore
 
-fun CityResult.toDomainModel(urbanAreaId: String, imgUrl: String): CityBase {
+fun NetworkCityResult.toDomainModel(urbanAreaId: String, imgUrl: String): CityBase {
     return CityBase(
         id = UUID.randomUUID(),
         urbanAreaId = urbanAreaId,
@@ -18,7 +18,7 @@ fun CityResult.toDomainModel(urbanAreaId: String, imgUrl: String): CityBase {
     )
 }
 
-fun ScoreResponse.toDomainModel(): ScoreData {
+fun NetworkScoreResponse.toDomainModel(): ScoreData {
     return ScoreData(
         categories = categories.map { it.toDomainModel() },
         summary = summary

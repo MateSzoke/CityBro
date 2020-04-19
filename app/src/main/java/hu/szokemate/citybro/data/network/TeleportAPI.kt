@@ -11,20 +11,20 @@ interface TeleportAPI {
     suspend fun getCityBySearch(
         @Query("search") search: String,
         @Query("limit") limit: Int
-    ): CitySearchResult
+    ): NetworkCitySearchResult
 
     @GET("cities/{city_id}")
-    suspend fun getCityByGeoNameId(@Path("city_id") geoNameId: String): CityResult
+    suspend fun getCityByGeoNameId(@Path("city_id") geoNameId: String): NetworkCityResult
 
     @GET("urban_areas/{ua_id}/")
-    suspend fun getUrbanAreaInformation(@Path("ua_id") urbanAreaId: String): UrbanArea
+    suspend fun getUrbanAreaInformation(@Path("ua_id") urbanAreaId: String): NetworkUrbanArea
 
     @GET("urban_areas/{ua_id}/images/")
-    suspend fun getCityImages(@Path("ua_id") urbanAreaId: String): UrbanAreaImages
+    suspend fun getCityImages(@Path("ua_id") urbanAreaId: String): NetworkUrbanAreaImages
 
     @GET("urban_areas/{ua_id}/scores/")
-    suspend fun getCityScores(@Path("ua_id") urbanAreaId: String): ScoreResponse
+    suspend fun getCityScores(@Path("ua_id") urbanAreaId: String): NetworkScoreResponse
 
     @GET("urban_areas/{ua_id}/details/")
-    suspend fun getCityDetails(@Path("ua_id") urbanAreaId: String): UrbanAreaDetails
+    suspend fun getCityDetails(@Path("ua_id") urbanAreaId: String): NetworkUrbanAreaDetails
 }

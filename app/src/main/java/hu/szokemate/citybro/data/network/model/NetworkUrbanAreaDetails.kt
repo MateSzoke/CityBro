@@ -4,19 +4,19 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class UrbanAreaDetails(
-    val categories: List<UrbanAreaDetailCategory>
+data class NetworkUrbanAreaDetails(
+    val categories: List<NetworkUrbanAreaDetailCategory>
 )
 
 @JsonClass(generateAdapter = true)
-data class UrbanAreaDetailCategory(
+data class NetworkUrbanAreaDetailCategory(
     val id: String,
     val label: String,
-    val data: List<UrbanAreaDetailDataPoint>
+    val data: List<NetworkUrbanAreaDetailDataPoint>
 )
 
 @JsonClass(generateAdapter = true)
-data class UrbanAreaDetailDataPoint(
+data class NetworkUrbanAreaDetailDataPoint(
     val id: String,
     val type: String,
     val label: String,
