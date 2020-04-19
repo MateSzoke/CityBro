@@ -14,7 +14,7 @@ import java.util.*
             entity = RoomCityDetails::class,
             parentColumns = ["id"],
             childColumns = ["cityDetailsId"],
-            onDelete = ForeignKey.NO_ACTION
+            onDelete = ForeignKey.CASCADE
         )
     ],
     indices = [

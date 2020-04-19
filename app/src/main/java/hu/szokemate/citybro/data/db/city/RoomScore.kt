@@ -13,7 +13,7 @@ import androidx.room.PrimaryKey
             entity = RoomCityDetails::class,
             parentColumns = ["id"],
             childColumns = ["scoreDataId"],
-            onDelete = ForeignKey.NO_ACTION
+            onDelete = ForeignKey.CASCADE
         )
     ],
     indices = [
