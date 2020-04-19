@@ -1,8 +1,12 @@
-package hu.szokemate.citybro.domain.model
+package hu.szokemate.citybro.data.db.city
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.*
 
-data class CityDetails(
+@Entity(tableName = "city_details")
+data class RoomCityDetails(
+    @PrimaryKey
     val id: UUID,
     val urbanAreaId: String,
     val fullName: String,
@@ -12,6 +16,5 @@ data class CityDetails(
     val mayor: String,
     val latitude: Double,
     val longitude: Double,
-    val currency: String?,
-    val scores: ScoreData
+    val currency: String?
 )
