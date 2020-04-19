@@ -23,10 +23,10 @@ constructor(
         return cityDao.getFavoriteCities().map { it.toDomainModel() }
     }
 
-    fun getCityDetailsByUrbanAreaId(urbanAreaId: String): CityDetails {
-        val roomCityBase = cityDao.getCityBaseByUrbanAreaId(urbanAreaId)
-        val roomCityDetails = cityDao.getCityDetailsByUrbanAreaId(urbanAreaId)
-        val roomScoreData = cityDao.getScoreDataByCityDetailsId(roomCityDetails.id)
+    fun getCityDetailsByUrbanAreaId(urbanAreaId: String): CityDetails? {
+        val roomCityBase = cityDao.getCityBaseByUrbanAreaId(urbanAreaId) ?: return null
+        val roomCityDetails = cityDao.getCityDetailsByUrbanAreaId(urbanAreaId) ?: return null
+        val roomScoreData = cityDao.getScoreDataByCityDetailsId(roomCityDetails.id) ?: return null
         val roomScores = cityDao.getScoresByScoreDataId(roomScoreData.id)
         return roomCityDetails.toDomainModel(
             isFavorite = roomCityBase.isFavorite,
@@ -34,13 +34,22 @@ constructor(
         )
     }
 
-    fun insertCityBase(city: CityBase) {
+    fun saveCityBase(city: CityBase) {
         cityDao.addCityBase(city.toRoomModel())
     }
 
-    fun insertCityBases(cities: List<CityBase>) {
+    fun saveCityBases(cities: List<CityBase>) {
         cities.forEach { city ->
             cityDao.addCityBase(city.toRoomModel())
+        }
+    }
+
+    fun saveCityDetails(cityDetails: CityDetails) {
+        cityDao.addCityDetails(cityDetails.toRoomModel())
+        val scores = cityDetails.scores
+        val scoreDataId = cityDao.addScoreData(scores.toRoomModel(cityDetails.id))
+        scores.categories.forEach { score ->
+            cityDao.addScore(score.toRoomModel(scoreDataId))
         }
     }
 

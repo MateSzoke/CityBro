@@ -9,12 +9,12 @@ class CityListPresenter @Inject constructor(
     private val cityInteractor: CityInteractor
 ) {
 
-    suspend fun getAllCities(): List<CityBase> = withIOContext {
-        cityInteractor.getAllCities()
+    suspend fun getAllCities(limit: Int): List<CityBase> = withIOContext {
+        cityInteractor.getAllCities(limit) ?: emptyList()
     }
 
-    suspend fun getCityBySearch(citySearch: String): String = withIOContext {
-        cityInteractor.getCityBySearch(citySearch) ?: "No result :'("
+    suspend fun getCityBySearch(citySearch: String): CityBase? = withIOContext {
+        cityInteractor.getCityBySearch(citySearch)
     }
 
 }

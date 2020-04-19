@@ -11,15 +11,53 @@ class CityInteractor @Inject constructor(
     private val networkDataSource: NetworkDataSource
 ) {
 
-    suspend fun getAllCities(): List<CityBase> {
-        return networkDataSource.getAllCities() ?: diskDataSource.getAllCities()
+    private fun getCachedCities(): List<CityBase> {
+        return diskDataSource.getAllCities()
     }
 
-    suspend fun getCityBySearch(citySearch: String): String? {
-        return networkDataSource.getCityBySearch(citySearch).toString()
+    private fun getCachedCityDetail(urbanAreaId: String): CityDetails? {
+        return diskDataSource.getCityDetailsByUrbanAreaId(urbanAreaId)
+    }
+
+    suspend fun getAllCities(limit: Int): List<CityBase>? {
+        val cities = getCachedCities()
+        return if (cities.isEmpty()) {
+            val newCities = networkDataSource.getAllCities(limit = limit)
+            if (newCities != null) {
+                diskDataSource.saveCityBases(newCities)
+            }
+            getCachedCities()
+        } else {
+            cities
+        }
+    }
+
+    suspend fun getCityBySearch(citySearch: String): CityBase? {
+        val city = networkDataSource.getCityBySearch(citySearch)
+        if (city != null) {
+            diskDataSource.saveCityBase(city)
+        }
+        return city
     }
 
     suspend fun getCityDetails(urbanAreaId: String): CityDetails? {
-        return networkDataSource.getCityDetails(urbanAreaId)
+        val cachedCityDetails = getCachedCityDetail(urbanAreaId)
+        return if (cachedCityDetails == null) {
+            val newCityDetail = networkDataSource.getCityDetails(urbanAreaId)
+            if (newCityDetail != null) diskDataSource.saveCityDetails(newCityDetail) else return null
+            getCachedCityDetail(urbanAreaId)
+
+        } else {
+            cachedCityDetails
+        }
     }
+
+    fun addCityToFavorites(urbanAreaId: String) {
+        diskDataSource.addCityToFavorites(urbanAreaId)
+    }
+
+    fun removeCityFromFavorites(urbanAreaId: String) {
+        diskDataSource.removeCityFromFavorites(urbanAreaId)
+    }
+
 }
