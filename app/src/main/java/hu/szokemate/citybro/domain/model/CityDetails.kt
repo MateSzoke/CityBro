@@ -13,6 +13,6 @@ data class CityDetails(
     val mayor: String,
     val latitude: Double,
     val longitude: Double,
-    val currency: String,
+    val currency: String?,
     val scores: ScoreData
 )

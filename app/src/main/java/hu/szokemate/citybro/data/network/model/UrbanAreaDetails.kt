@@ -18,18 +18,18 @@ data class UrbanAreaDetailCategory(
 @JsonClass(generateAdapter = true)
 data class UrbanAreaDetailDataPoint(
     val id: String,
-    @Json(name = "currency_dollar_value")
-    val currencyDollarValue: Double,
-    @Json(name = "float_value")
-    val doubleValue: Double,
-    @Json(name = "int_value")
-    val intValue: Int,
-    val label: String,
-    @Json(name = "percent_value")
-    val percentValue: Double,
-    @Json(name = "string_value")
-    val stringValue: String,
     val type: String,
+    val label: String,
+    @Json(name = "currency_dollar_value")
+    val currencyDollarValue: Double? = null,
+    @Json(name = "float_value")
+    val doubleValue: Double? = null,
+    @Json(name = "int_value")
+    val intValue: Int? = null,
+    @Json(name = "percent_value")
+    val percentValue: Double? = null,
+    @Json(name = "string_value")
+    val stringValue: String? = null,
     @Json(name = "url_value")
-    val urlValue: String
+    val urlValue: String? = null
 )

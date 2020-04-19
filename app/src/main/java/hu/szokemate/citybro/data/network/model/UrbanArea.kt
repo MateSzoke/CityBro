@@ -8,12 +8,6 @@ data class UrbanArea(
     @Json(name = "full_name")
     val fullName: String,
     val name: String,
-    val mayor: String,
-    @Json(name = "_links")
-    val links: UrbanLink
+    val mayor: String
 )
 
-@JsonClass(generateAdapter = true)
-data class UrbanLink(
-    val country: LinkHref
-)

@@ -46,6 +46,11 @@ class CityListFragment : RainbowCakeFragment<CityListViewState, CityListViewMode
         cityListFragmentRoot.isVisible = true
         resultText.text = viewState.tmpResult
         viewState.cities.forEach { Timber.d(it.toString()) }
+        showDetailsButton.setOnClickListener {
+            val urbanAreaId = viewState.cities.first().urbanAreaId
+            if (urbanAreaId.isNotEmpty())
+                navigator?.add(CityDetailsFragment.newInstance(urbanAreaId))
+        }
     }
 
     override fun onCityClicked(city: CityBase) {

@@ -46,7 +46,7 @@ class NetworkDataSource @Inject constructor(
                 val cityResult = teleportAPI.getCityByGeoNameId(id)
                 val urbanAreaId = cityResult.urbanAreaId
                 val imgUrl =
-                    if (urbanAreaId.isEmpty()) teleportAPI.getCityImages(urbanAreaId).photos[0].image.web else ""
+                    if (urbanAreaId.isNotEmpty()) teleportAPI.getCityImages(urbanAreaId).photos.first().image.web else ""
                 cityResult.toDomainModel(urbanAreaId = urbanAreaId, imgUrl = imgUrl)
             }
         }
@@ -62,7 +62,7 @@ class NetworkDataSource @Inject constructor(
 
     suspend fun getCityDetails(urbanAreaId: String): CityDetails? {
         return fetch {
-            val details = teleportAPI.getCityDetails(urbanAreaId)
+            if (urbanAreaId.isEmpty()) return null
             val urbanArea = teleportAPI.getUrbanAreaInformation(urbanAreaId)
             val geoNameId = teleportAPI.getCityBySearch(
                 search = urbanArea.name,
@@ -71,6 +71,7 @@ class NetworkDataSource @Inject constructor(
             val cityResult = teleportAPI.getCityByGeoNameId(geoNameId)
             val images = teleportAPI.getCityImages(urbanAreaId).photos.map { it.image.web }
             val scores = teleportAPI.getCityScores(urbanAreaId)
+            val details = teleportAPI.getCityDetails(urbanAreaId)
             CityDetails(
                 id = UUID.randomUUID(),
                 urbanAreaId = urbanAreaId,
@@ -78,7 +79,8 @@ class NetworkDataSource @Inject constructor(
                 imgUrls = images,
                 isFavorite = false,
                 population = cityResult.population,
-                country = urbanArea.links.country.name,
+                //country = urbanArea.links.country.name,
+                country = urbanArea.fullName,
                 mayor = urbanArea.mayor,
                 latitude = cityResult.location.latlon.latitude,
                 longitude = cityResult.location.latlon.longitude,
