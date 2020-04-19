@@ -2,11 +2,14 @@ package hu.szokemate.citybro.ui.citydetails
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.extensions.applyArgs
-import co.zsmb.rainbowcake.extensions.requireLong
+import co.zsmb.rainbowcake.extensions.exhaustive
+import co.zsmb.rainbowcake.navigation.extensions.requireString
 import hu.szokemate.citybro.R
+import kotlinx.android.synthetic.main.fragment_city_details.*
 
 class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetailsViewModel> {
 
@@ -25,17 +28,17 @@ class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetail
         private const val CITY_ID = "SOME_ID"
 
         @Suppress("DEPRECATION")
-        fun newInstance(cityId: Long): CityDetailsFragment {
+        fun newInstance(cityId: String): CityDetailsFragment {
             return CityDetailsFragment().applyArgs {
-                putLong(CITY_ID, cityId)
+                putString(CITY_ID, cityId)
             }
         }
     }
 
-    private var cityId: Long = 0
+    private var cityId: String = ""
 
     private fun initArguments() {
-        cityId = requireArguments().requireLong(CITY_ID)
+        cityId = requireArguments().requireString(CITY_ID)
     }
 
     //endregion
@@ -43,18 +46,31 @@ class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetail
         super.onViewCreated(view, savedInstanceState)
 
         initArguments()
-
-        // TODO Setup views
     }
 
     override fun onStart() {
         super.onStart()
 
-        viewModel.load()
+        viewModel.load(cityId)
     }
 
     override fun render(viewState: CityDetailsViewState) {
-        // TODO Render state
+        when (viewState) {
+            Loading -> cityDetailsFragmentRoot.isVisible = false
+            EmptyCityDetails -> showEmptyCityDetails()
+            is CityDetailsReady -> showCityDetailsReady(viewState)
+        }.exhaustive
+    }
+
+    private fun showEmptyCityDetails() {
+        cityDetailsFragmentRoot.isVisible = true
+        cityDetailsResultText.text = "Empty result"
+    }
+
+    private fun showCityDetailsReady(viewState: CityDetailsReady) {
+        cityDetailsFragmentRoot.isVisible = true
+        cityDetailsResultText.text = viewState.city.toString()
+
     }
 
 }

@@ -3,6 +3,7 @@ package hu.szokemate.citybro.domain.interactor
 import hu.szokemate.citybro.data.db.DiskDataSource
 import hu.szokemate.citybro.data.network.NetworkDataSource
 import hu.szokemate.citybro.domain.model.CityBase
+import hu.szokemate.citybro.domain.model.CityDetails
 import javax.inject.Inject
 
 class CityInteractor @Inject constructor(
@@ -12,5 +13,13 @@ class CityInteractor @Inject constructor(
 
     suspend fun getAllCities(): List<CityBase> {
         return networkDataSource.getAllCities() ?: diskDataSource.getAllCities()
+    }
+
+    suspend fun getCityBySearch(citySearch: String): String? {
+        return networkDataSource.getCityBySearch(citySearch).toString()
+    }
+
+    suspend fun getCityDetails(urbanAreaId: String): CityDetails? {
+        return networkDataSource.getCityDetails(urbanAreaId)
     }
 }

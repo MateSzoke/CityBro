@@ -1,8 +1,10 @@
 package hu.szokemate.citybro.data.network
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import hu.szokemate.citybro.data.network.model.NetworkUrbanAreaDetailDataPoint
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
@@ -26,7 +28,7 @@ class NetworkModule {
             .addInterceptor(httpLoggingInterceptor.apply { httpLoggingInterceptor.level = BODY })
             .addNetworkInterceptor(StethoInterceptor())
             .connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
             .build()
     }
@@ -36,7 +38,15 @@ class NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(TELEPORT_API_BASE_URL)
         .client(okHttpClient)
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(
+            MoshiConverterFactory.create(
+                Moshi.Builder().add(
+                    DefaultOnDataMismatchAdapter.newFactory(
+                        type = NetworkUrbanAreaDetailDataPoint::class.java, defaultValue = null
+                    )
+                ).build()
+            )
+        )
         .build()
 
     @Provides
