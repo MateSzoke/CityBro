@@ -2,7 +2,6 @@ package hu.szokemate.citybro
 
 import co.zsmb.rainbowcake.dagger.RainbowCakeModule
 import dagger.Component
-import hu.szokemate.citybro.data.db.DiskModule
 import hu.szokemate.citybro.data.db.RoomModule
 import hu.szokemate.citybro.data.network.NetworkModule
 import hu.szokemate.citybro.di.AppComponent

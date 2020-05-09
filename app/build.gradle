@@ -125,6 +125,7 @@ dependencies {
     // Google Truth - Asserts
     testImplementation "com.google.truth:truth:1.0.1"
 
+
     // AndroidX Test
     def espresso_version = '3.2.0'
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
