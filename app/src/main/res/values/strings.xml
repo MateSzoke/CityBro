@@ -2,4 +2,8 @@
     <string name="app_name">CityBro</string>
     <string name="city_search_button">Search</string>
     <string name="show_details_button">Show details</string>
+    <string name="city_list_favorites_button">favorites</string>
+    <string name="search_icon_content_description">search_icon</string>
+    <string name="city_search_input_hint">Search city</string>
+    <string name="city_image_content_description">city image</string>
 </resources>

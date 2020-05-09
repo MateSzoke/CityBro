@@ -13,7 +13,6 @@ import hu.szokemate.citybro.ui.CityAdapter
 import hu.szokemate.citybro.ui.citydetails.CityDetailsFragment
 import hu.szokemate.citybro.util.extensions.trimmedText
 import kotlinx.android.synthetic.main.fragment_city_list.*
-import timber.log.Timber
 
 class CityListFragment : RainbowCakeFragment<CityListViewState, CityListViewModel>(),
     CityAdapter.Listener {
@@ -26,7 +25,9 @@ class CityListFragment : RainbowCakeFragment<CityListViewState, CityListViewMode
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        citySearchButton.setOnClickListener { viewModel.searchCity(citySearchInput.trimmedText) }
+        searchImage.setOnClickListener { viewModel.searchCity(citySearchInput.trimmedText) }
+        cityAdapter = CityAdapter()
+        cityAdapter.listener = this
     }
 
     override fun onStart() {
@@ -42,15 +43,12 @@ class CityListFragment : RainbowCakeFragment<CityListViewState, CityListViewMode
         }.exhaustive
     }
 
+
     private fun showCityListReady(viewState: CityListReady) {
         cityListFragmentRoot.isVisible = true
-        resultText.text = viewState.tmpResult
-        viewState.cities.forEach { Timber.d(it.toString()) }
-        showDetailsButton.setOnClickListener {
-            val urbanAreaId = viewState.cities.first().urbanAreaId
-            if (urbanAreaId.isNotEmpty())
-                navigator?.add(CityDetailsFragment.newInstance(urbanAreaId))
-        }
+
+        cityAdapter.submitList(viewState.cities)
+        cityList.adapter = cityAdapter
     }
 
     override fun onCityClicked(city: CityBase) {
