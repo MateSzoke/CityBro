@@ -86,6 +86,10 @@ class CityListFragment : RainbowCakeFragment<CityListViewState, CityListViewMode
         navigator?.add(CityDetailsFragment.newInstance(city.urbanAreaId))
     }
 
+    override fun onFavoriteButtonClicked(isAdd: Boolean, urbanAreaId: String) {
+        viewModel.setCityFavorite(isAdd, urbanAreaId)
+    }
+
     override fun onBackPressed(): Boolean {
         return if (citySearchInput.text.isNotEmpty()) {
             clearSearchInput()

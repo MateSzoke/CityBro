@@ -29,4 +29,12 @@ class CityListViewModel @Inject constructor(
         } else CityNotFound
     }
 
+    fun setCityFavorite(isAdd: Boolean, urbanAreaId: String) = execute {
+        val state = viewState as? CityListReady ?: return@execute
+        viewState = state.copy(cities = state.cities.map { city ->
+            if (city.urbanAreaId == urbanAreaId) city.copy(isFavorite = !city.isFavorite) else city
+        })
+        cityListPresenter.setCityFavorite(isAdd, urbanAreaId)
+    }
+
 }

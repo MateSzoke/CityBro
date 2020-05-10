@@ -33,7 +33,12 @@ class CityInteractor @Inject constructor(
     }
 
     suspend fun getCityBySearch(citySearch: String): CityBase? {
-        val city = networkDataSource.getCityBySearch(citySearch)
+        val city = getCachedCities().firstOrNull {
+            it.name.contains(
+                other = citySearch,
+                ignoreCase = true
+            )
+        } ?: networkDataSource.getCityBySearch(citySearch)
         if (city != null) {
             diskDataSource.saveCityBase(city)
         }

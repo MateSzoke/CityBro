@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/common_list_divider"
-    android:padding="12dp">
+    android:paddingTop="12dp">
 
     <TextView
         android:id="@+id/cityNameText"
@@ -18,11 +18,21 @@
         tools:text="Berlin" />
 
     <ImageView
+        android:id="@+id/addFavoriteButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_favorite_24px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/cityImage"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:contentDescription="@string/city_image_content_description"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cityNameText" />
 
     <com.google.android.material.button.MaterialButton

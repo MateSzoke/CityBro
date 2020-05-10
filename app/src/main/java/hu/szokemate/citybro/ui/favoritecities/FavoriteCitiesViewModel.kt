@@ -11,4 +11,8 @@ class FavoriteCitiesViewModel @Inject constructor(
         viewState = FavoriteCitiesReady(favoriteCitiesPresenter.getData())
     }
 
+    fun setCityFavorite(isAdd: Boolean, urbanAreaId: String) = execute {
+        favoriteCitiesPresenter.setCityFavorite(isAdd, urbanAreaId)
+    }
+
 }

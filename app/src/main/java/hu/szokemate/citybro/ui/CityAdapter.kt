@@ -29,12 +29,14 @@ class CityAdapter : ListAdapter<CityBase, CityViewHolder>(CityComparator) {
 
         holder.cityNameText.text = city.name
         holder.cityImage.load(city.imgUrl)
+        holder.addFavoriteButton.load(if (city.isFavorite) R.drawable.ic_favorite_24px else R.drawable.ic_favorite_border_24px)
     }
 
     inner class CityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cityNameText: TextView = itemView.cityNameText
         val cityImage: ImageView = itemView.cityImage
-        val showDetailsButton: Button = itemView.showDetailsButton
+        val addFavoriteButton: ImageView = itemView.addFavoriteButton
+        private val showDetailsButton: Button = itemView.showDetailsButton
 
         var city: CityBase? = null
 
@@ -45,11 +47,21 @@ class CityAdapter : ListAdapter<CityBase, CityViewHolder>(CityComparator) {
             showDetailsButton.setOnClickListener {
                 city?.let { listener?.onCityClicked(it) }
             }
+            addFavoriteButton.setOnClickListener {
+                city?.let { city ->
+                    addFavoriteButton.load(if (!city.isFavorite) R.drawable.ic_favorite_24px else R.drawable.ic_favorite_border_24px)
+                    listener?.onFavoriteButtonClicked(
+                        isAdd = !city.isFavorite,
+                        urbanAreaId = city.urbanAreaId
+                    )
+                }
+            }
         }
     }
 
     interface Listener {
         fun onCityClicked(city: CityBase)
+        fun onFavoriteButtonClicked(isAdd: Boolean, urbanAreaId: String)
     }
 
 }

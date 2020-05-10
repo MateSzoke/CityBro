@@ -38,4 +38,8 @@ class FavoriteCitiesFragment :
         navigator?.add(CityDetailsFragment.newInstance(city.urbanAreaId))
     }
 
+    override fun onFavoriteButtonClicked(isAdd: Boolean, urbanAreaId: String) {
+        viewModel.setCityFavorite(isAdd, urbanAreaId)
+    }
+
 }
