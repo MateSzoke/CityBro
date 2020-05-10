@@ -8,4 +8,4 @@ object Loading : CityListViewState()
 
 object CityNotFound : CityListViewState()
 
-data class CityListReady(val cities: List<CityBase>, val tmpResult: String) : CityListViewState()
+data class CityListReady(val cities: List<CityBase>) : CityListViewState()

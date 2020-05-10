@@ -13,6 +13,7 @@ import hu.szokemate.citybro.R
 import hu.szokemate.citybro.domain.model.CityBase
 import hu.szokemate.citybro.ui.CityAdapter
 import hu.szokemate.citybro.ui.citydetails.CityDetailsFragment
+import hu.szokemate.citybro.ui.favoritecities.FavoriteCitiesFragment
 import hu.szokemate.citybro.util.extensions.hideKeyboard
 import hu.szokemate.citybro.util.extensions.trimmedText
 import kotlinx.android.synthetic.main.fragment_city_list.*
@@ -46,6 +47,8 @@ class CityListFragment : RainbowCakeFragment<CityListViewState, CityListViewMode
         }
 
         appTitleText.setOnClickListener { viewModel.load() }
+
+        favoriteButton.setOnClickListener { navigator?.add(FavoriteCitiesFragment()) }
     }
 
     override fun onStart() {

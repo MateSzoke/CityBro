@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.View
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
+import co.zsmb.rainbowcake.extensions.exhaustive
 import co.zsmb.rainbowcake.navigation.navigator
 import hu.szokemate.citybro.R
 import hu.szokemate.citybro.domain.model.CityBase
 import hu.szokemate.citybro.ui.CityAdapter
 import hu.szokemate.citybro.ui.citydetails.CityDetailsFragment
+import kotlinx.android.synthetic.main.back_button_toolbar.*
+import kotlinx.android.synthetic.main.fragment_favorite_cities.*
 
 class FavoriteCitiesFragment :
     RainbowCakeFragment<FavoriteCitiesViewState, FavoriteCitiesViewModel>(), CityAdapter.Listener {
@@ -21,7 +24,11 @@ class FavoriteCitiesFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO Setup views
+        toolbar.title = getString(R.string.favorite_cities_toolbar)
+        toolbar.setNavigationOnClickListener { navigator?.pop() }
+
+        cityAdapter = CityAdapter()
+        cityAdapter.listener = this
     }
 
     override fun onStart() {
@@ -31,7 +38,14 @@ class FavoriteCitiesFragment :
     }
 
     override fun render(viewState: FavoriteCitiesViewState) {
-        // TODO Render state
+        when (viewState) {
+            is FavoriteCitiesReady -> showFavoriteCities(viewState.cities)
+        }.exhaustive
+    }
+
+    private fun showFavoriteCities(cities: List<CityBase>) {
+        cityAdapter.submitList(cities)
+        cityList.adapter = cityAdapter
     }
 
     override fun onCityClicked(city: CityBase) {

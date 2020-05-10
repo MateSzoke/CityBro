@@ -57,6 +57,9 @@ class CityInteractor @Inject constructor(
         }
     }
 
+    fun getFavoriteCities() = getCachedCities().filter { it.isFavorite }
+
+
     fun addCityToFavorites(urbanAreaId: String) {
         diskDataSource.addCityToFavorites(urbanAreaId)
     }

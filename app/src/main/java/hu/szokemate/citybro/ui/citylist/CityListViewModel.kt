@@ -13,7 +13,7 @@ class CityListViewModel @Inject constructor(
 
     fun load(limit: Int = TOP_CITIES_LIMIT) = execute {
         viewState =
-            CityListReady(cityListPresenter.getAllCities(limit = limit), "No result")
+            CityListReady(cityListPresenter.getAllCities(limit = limit))
     }
 
     fun searchCity(citySearch: String) = execute {
