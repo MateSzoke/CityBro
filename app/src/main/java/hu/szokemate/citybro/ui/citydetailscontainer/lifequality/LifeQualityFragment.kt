@@ -1,14 +1,20 @@
 package hu.szokemate.citybro.ui.citydetailscontainer.lifequality
 
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.extensions.applyArgs
+import co.zsmb.rainbowcake.extensions.exhaustive
 import co.zsmb.rainbowcake.navigation.extensions.requireString
 import hu.szokemate.citybro.R
+import hu.szokemate.citybro.domain.model.ScoreData
+import kotlinx.android.synthetic.main.fragment_life_quality.*
 
 class LifeQualityFragment : RainbowCakeFragment<LifeQualityViewState, LifeQualityViewModel> {
+
+    private lateinit var scoreAdapter: ScoreAdapter
 
     override fun provideViewModel() = getViewModelFromFactory()
     override fun getViewResource() = R.layout.fragment_life_quality
@@ -44,16 +50,28 @@ class LifeQualityFragment : RainbowCakeFragment<LifeQualityViewState, LifeQualit
         super.onViewCreated(view, savedInstanceState)
 
         initArguments()
+        scoreAdapter = ScoreAdapter()
     }
 
     override fun onStart() {
         super.onStart()
 
-        viewModel.load()
+        viewModel.load(cityId)
     }
 
     override fun render(viewState: LifeQualityViewState) {
-        // TODO Render state
+        when (viewState) {
+            Loading -> {
+            }
+            is LifeQualityReady -> showScores(viewState.scoreData)
+        }.exhaustive
+    }
+
+    private fun showScores(scoreData: ScoreData) {
+        @Suppress("DEPRECATION")
+        scoreSummaryText.text = Html.fromHtml(scoreData.summary)
+        scoreAdapter.submitList(scoreData.categories)
+        scoreList.adapter = scoreAdapter
     }
 
 }
