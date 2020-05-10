@@ -10,6 +10,7 @@ import co.zsmb.rainbowcake.extensions.exhaustive
 import co.zsmb.rainbowcake.navigation.extensions.requireString
 import hu.szokemate.citybro.R
 import hu.szokemate.citybro.domain.model.CityDetails
+import hu.szokemate.citybro.util.glide.load
 import kotlinx.android.synthetic.main.fragment_city_details.*
 
 class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetailsViewModel> {
@@ -68,6 +69,16 @@ class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetail
 
     private fun showCityDetailsReady(city: CityDetails) {
         cityDetailsFragmentRoot.isVisible = true
+
+        city.apply {
+            detailsImage.load(imgUrlMobile)
+            detailsFullNameValue.text = fullName
+            detailsPopulationValue.text = population.toString()
+            detailsCurrencyValue.text = currency
+            detailsLongitudeValue.text = longitude.toString()
+            detailsLatitudeValue.text = latitude.toString()
+            detailsMayorValue.text = mayor
+        }
     }
 
 }
