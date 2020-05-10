@@ -35,7 +35,8 @@ constructor(
     }
 
     fun saveCityBase(city: CityBase) {
-        cityDao.addCityBase(city.toRoomModel())
+        if (city.urbanAreaId !in cityDao.getAllCities().map { it.urbanAreaId })
+            cityDao.addCityBase(city.toRoomModel())
     }
 
     fun saveCityBases(cities: List<CityBase>) {

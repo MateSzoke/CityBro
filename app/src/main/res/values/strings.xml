@@ -2,4 +2,19 @@
     <string name="app_name">CityBro</string>
     <string name="city_search_button">Search</string>
     <string name="show_details_button">Show details</string>
+    <string name="city_list_favorites_button">favorites</string>
+    <string name="search_icon_content_description">search_icon</string>
+    <string name="city_search_input_hint">Type city name here…</string>
+    <string name="city_image_content_description">city image</string>
+    <string name="favorite_cities_toolbar">Favorite cities</string>
+    <string name="city_details_tab_title">City details</string>
+    <string name="life_quality_tab_title">Life quality scores</string>
+    <string name="details_title">Details</string>
+    <string name="details_population">Population</string>
+    <string name="details_longitude">Longitude</string>
+    <string name="details_latitude">Latitude</string>
+    <string name="details_currency">Currency</string>
+    <string name="details_image_content_description">details image</string>
+    <string name="details_mayor">Mayor</string>
+    <string name="details_full_name">Full name</string>
 </resources>

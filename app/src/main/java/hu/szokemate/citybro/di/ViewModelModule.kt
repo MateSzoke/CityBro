@@ -5,10 +5,11 @@ import co.zsmb.rainbowcake.dagger.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import hu.szokemate.citybro.ui.citydetails.CityDetailsViewModel
+import hu.szokemate.citybro.ui.citydetailscontainer.CityDetailsContainerViewModel
+import hu.szokemate.citybro.ui.citydetailscontainer.citydetails.CityDetailsViewModel
+import hu.szokemate.citybro.ui.citydetailscontainer.lifequality.LifeQualityViewModel
 import hu.szokemate.citybro.ui.citylist.CityListViewModel
 import hu.szokemate.citybro.ui.favoritecities.FavoriteCitiesViewModel
-import hu.szokemate.citybro.ui.lifequality.LifeQualityViewModel
 
 @Suppress("unused")
 @Module
@@ -33,5 +34,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FavoriteCitiesViewModel::class)
     abstract fun favoriteCitiesViewModel(favoriteCitiesViewModel: FavoriteCitiesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CityDetailsContainerViewModel::class)
+    abstract fun cityDetailsContainerViewModel(cityDetailsContainerViewModel: CityDetailsContainerViewModel): ViewModel
 
 }

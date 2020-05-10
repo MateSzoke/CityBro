@@ -1,7 +1,7 @@
 package hu.szokemate.citybro.ui.favoritecities
 
+import hu.szokemate.citybro.domain.model.CityBase
+
 sealed class FavoriteCitiesViewState
 
-object Loading : FavoriteCitiesViewState()
-
-data class FavoriteCitiesReady(val data: String = "") : FavoriteCitiesViewState()
+data class FavoriteCitiesReady(val cities: List<CityBase>) : FavoriteCitiesViewState()

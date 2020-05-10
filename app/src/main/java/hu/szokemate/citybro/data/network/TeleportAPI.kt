@@ -10,7 +10,7 @@ interface TeleportAPI {
     @GET("cities/")
     suspend fun getCityBySearch(
         @Query("search") search: String,
-        @Query("limit") limit: Int
+        @Query("limit") limit: Int = 1
     ): NetworkCitySearchResult
 
     @GET("cities/{city_id}")

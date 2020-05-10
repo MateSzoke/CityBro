@@ -46,6 +46,7 @@ fun Score.toRoomModel(scoreDataId: Long): RoomScore {
 
 fun RoomScoreData.toDomainModel(categories: List<RoomScore>): ScoreData {
     return ScoreData(
+        id = id,
         categories = categories.map { it.toDomainModel() },
         summary = summary
     )
@@ -63,7 +64,8 @@ fun CityDetails.toRoomModel(): RoomCityDetails {
         id = id,
         urbanAreaId = urbanAreaId,
         fullName = fullName,
-        imgUrl = imgUrl,
+        imgUrlWeb = imgUrlWeb,
+        imgUrlMobile = imgUrlMobile,
         population = population,
         mayor = mayor,
         latitude = latitude,
@@ -77,7 +79,8 @@ fun RoomCityDetails.toDomainModel(isFavorite: Boolean, scoreData: ScoreData): Ci
         id = id,
         urbanAreaId = urbanAreaId,
         fullName = fullName,
-        imgUrl = imgUrl,
+        imgUrlWeb = imgUrlWeb,
+        imgUrlMobile = imgUrlMobile,
         population = population,
         mayor = mayor,
         latitude = latitude,

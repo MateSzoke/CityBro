@@ -17,4 +17,11 @@ class CityListPresenter @Inject constructor(
         cityInteractor.getCityBySearch(citySearch)
     }
 
+    suspend fun setCityFavorite(isAdd: Boolean, urbanAreaId: String) = withIOContext {
+        if (isAdd)
+            cityInteractor.addCityToFavorites(urbanAreaId)
+        else
+            cityInteractor.removeCityFromFavorites(urbanAreaId)
+    }
+
 }
