@@ -9,4 +9,9 @@
     <string name="favorite_cities_toolbar">Favorite cities</string>
     <string name="city_details_tab_title">City details</string>
     <string name="life_quality_tab_title">Life quality scores</string>
+    <string name="details_title">Details</string>
+    <string name="details_population">Population</string>
+    <string name="details_longitude">Longitude</string>
+    <string name="details_latitude">Latitude</string>
+    <string name="details_currency">Currency</string>
 </resources>

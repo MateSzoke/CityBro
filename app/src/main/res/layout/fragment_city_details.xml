@@ -1,18 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cityDetailsFragmentRoot"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/cityFullNameText"
+        android:id="@+id/detailsTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CityDetailsFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/BoldTextStyle"
+        android:text="@string/details_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/detailsTableContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:shrinkColumns="0"
+        app:layout_constraintTop_toBottomOf="@id/detailsTitleText">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/commonListTopPadding">
+
+            <TextView
+                android:id="@+id/detailsPopulation"
+                style="@style/BoldTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/details_population"
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/detailsPopulationValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="8dp"
+                tools:text="122000" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/commonListTopPadding">
+
+            <TextView
+                android:id="@+id/detailsLongitude"
+                style="@style/BoldTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/details_longitude"
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/detailsLongitudeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="8dp"
+                tools:text="40.3" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/commonListTopPadding">
+
+            <TextView
+                android:id="@+id/detailsLatitude"
+                style="@style/BoldTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/details_latitude"
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/detailsLatitudeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="8dp"
+                tools:text="26.7" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/commonListTopPadding">
+
+            <TextView
+                android:id="@+id/detailsCurrency"
+                style="@style/BoldTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/details_currency"
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/detailsCurrencyValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="8dp"
+                tools:text="EUR" />
+        </TableRow>
+
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -68,7 +68,6 @@ class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetail
 
     private fun showCityDetailsReady(city: CityDetails) {
         cityDetailsFragmentRoot.isVisible = true
-        cityFullNameText.text = city.fullName
     }
 
 }
