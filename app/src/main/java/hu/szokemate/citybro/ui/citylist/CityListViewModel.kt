@@ -17,9 +17,16 @@ class CityListViewModel @Inject constructor(
     }
 
     fun searchCity(citySearch: String) = execute {
+        if (citySearch.isBlank()) {
+            load()
+            return@execute
+        }
         val state = viewState as? CityListReady ?: return@execute
+        viewState = Loading
         val result = cityListPresenter.getCityBySearch(citySearch)
-        viewState = state.copy(tmpResult = result.toString())  //TODO remove toString after test
+        viewState = if (result != null) {
+            state.copy(cities = listOf(result))
+        } else CityNotFound
     }
 
 }

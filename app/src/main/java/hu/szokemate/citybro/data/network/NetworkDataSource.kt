@@ -48,9 +48,9 @@ class NetworkDataSource @Inject constructor(
         }
     }
 
-    suspend fun getCityBySearch(query: String, limit: Int = 1): CityBase? {
+    suspend fun getCityBySearch(query: String): CityBase? {
         return fetch {
-            val citySearchResult = teleportAPI.getCityBySearch(query, limit)
+            val citySearchResult = teleportAPI.getCityBySearch(query)
             if (citySearchResult.result.searchResults.isEmpty()) return null
             teleportAPI.getCityByGeoNameId(citySearchResult.result.searchResults.first().geoNameId)
                 .toCityBase()
