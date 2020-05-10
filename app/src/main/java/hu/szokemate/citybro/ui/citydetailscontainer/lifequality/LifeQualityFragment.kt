@@ -1,26 +1,29 @@
-package hu.szokemate.citybro.ui.citydetails
+package hu.szokemate.citybro.ui.citydetailscontainer.lifequality
 
 import android.os.Bundle
+import android.text.Html
 import android.view.View
-import androidx.core.view.isVisible
 import co.zsmb.rainbowcake.base.RainbowCakeFragment
 import co.zsmb.rainbowcake.dagger.getViewModelFromFactory
 import co.zsmb.rainbowcake.extensions.applyArgs
 import co.zsmb.rainbowcake.extensions.exhaustive
 import co.zsmb.rainbowcake.navigation.extensions.requireString
 import hu.szokemate.citybro.R
-import kotlinx.android.synthetic.main.fragment_city_details.*
+import hu.szokemate.citybro.domain.model.ScoreData
+import kotlinx.android.synthetic.main.fragment_life_quality.*
 
-class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetailsViewModel> {
+class LifeQualityFragment : RainbowCakeFragment<LifeQualityViewState, LifeQualityViewModel> {
+
+    private lateinit var scoreAdapter: ScoreAdapter
 
     override fun provideViewModel() = getViewModelFromFactory()
-    override fun getViewResource() = R.layout.fragment_city_details
+    override fun getViewResource() = R.layout.fragment_life_quality
 
     //region Arguments
     @Suppress("ConvertSecondaryConstructorToPrimary")
     @Deprecated(
         message = "Use newInstance instead",
-        replaceWith = ReplaceWith("CityDetailsFragment.newInstance()")
+        replaceWith = ReplaceWith("LifeQualityFragment.newInstance()")
     )
     constructor()
 
@@ -28,8 +31,8 @@ class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetail
         private const val CITY_ID = "SOME_ID"
 
         @Suppress("DEPRECATION")
-        fun newInstance(cityId: String): CityDetailsFragment {
-            return CityDetailsFragment().applyArgs {
+        fun newInstance(cityId: String): LifeQualityFragment {
+            return LifeQualityFragment().applyArgs {
                 putString(CITY_ID, cityId)
             }
         }
@@ -42,10 +45,12 @@ class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetail
     }
 
     //endregion
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initArguments()
+        scoreAdapter = ScoreAdapter()
     }
 
     override fun onStart() {
@@ -54,23 +59,19 @@ class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetail
         viewModel.load(cityId)
     }
 
-    override fun render(viewState: CityDetailsViewState) {
+    override fun render(viewState: LifeQualityViewState) {
         when (viewState) {
-            Loading -> cityDetailsFragmentRoot.isVisible = false
-            EmptyCityDetails -> showEmptyCityDetails()
-            is CityDetailsReady -> showCityDetailsReady(viewState)
+            Loading -> {
+            }
+            is LifeQualityReady -> showScores(viewState.scoreData)
         }.exhaustive
     }
 
-    private fun showEmptyCityDetails() {
-        cityDetailsFragmentRoot.isVisible = true
-        cityDetailsResultText.text = "Empty result"
-    }
-
-    private fun showCityDetailsReady(viewState: CityDetailsReady) {
-        cityDetailsFragmentRoot.isVisible = true
-        cityDetailsResultText.text = viewState.city.toString()
-
+    private fun showScores(scoreData: ScoreData) {
+        @Suppress("DEPRECATION")
+        scoreSummaryText.text = Html.fromHtml(scoreData.summary)
+        scoreAdapter.submitList(scoreData.categories)
+        scoreList.adapter = scoreAdapter
     }
 
 }

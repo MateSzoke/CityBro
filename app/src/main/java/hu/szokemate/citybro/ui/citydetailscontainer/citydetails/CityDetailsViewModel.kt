@@ -1,4 +1,4 @@
-package hu.szokemate.citybro.ui.citydetails
+package hu.szokemate.citybro.ui.citydetailscontainer.citydetails
 
 import co.zsmb.rainbowcake.base.JobViewModel
 import javax.inject.Inject

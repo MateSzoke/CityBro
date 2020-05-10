@@ -1,6 +1,7 @@
 package hu.szokemate.citybro.domain.model
 
 data class ScoreData(
+    val id: Long? = null,
     val categories: List<Score>,
     val summary: String
 )

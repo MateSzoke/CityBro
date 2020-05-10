@@ -1,4 +1,4 @@
-package hu.szokemate.citybro.ui.citydetails
+package hu.szokemate.citybro.ui.citydetailscontainer.citydetails
 
 import hu.szokemate.citybro.domain.model.CityDetails
 

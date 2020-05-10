@@ -6,4 +6,6 @@ sealed class CityListViewState
 
 object Loading : CityListViewState()
 
-data class CityListReady(val cities: List<CityBase>, val tmpResult: String) : CityListViewState()
+object CityNotFound : CityListViewState()
+
+data class CityListReady(val cities: List<CityBase>) : CityListViewState()
