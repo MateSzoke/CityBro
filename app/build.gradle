@@ -50,6 +50,16 @@ android {
             dimension environment
         }
     }
+
+    sourceSets {
+        test {
+            java.srcDir 'src/testDev'
+        }
+
+        androidTest {
+            java.srcDir 'src/androidTest'
+        }
+    }
 }
 
 dependencies {

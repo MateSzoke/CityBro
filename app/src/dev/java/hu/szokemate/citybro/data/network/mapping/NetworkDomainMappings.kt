@@ -1,4 +1,4 @@
-package hu.szokemate.citybro.domain.mapping
+package hu.szokemate.citybro.data.network.mapping
 
 import hu.szokemate.citybro.data.network.model.NetworkCityResult
 import hu.szokemate.citybro.data.network.model.NetworkScore
