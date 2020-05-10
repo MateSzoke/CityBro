@@ -1,8 +1,8 @@
 package hu.szokemate.citybro.data.network
 
+import hu.szokemate.citybro.data.network.mapping.toDomainModel
 import hu.szokemate.citybro.data.network.model.NetworkCityResult
 import hu.szokemate.citybro.data.network.model.NetworkSearchResult
-import hu.szokemate.citybro.domain.mapping.toDomainModel
 import hu.szokemate.citybro.domain.model.CityBase
 import hu.szokemate.citybro.domain.model.CityDetails
 import retrofit2.HttpException

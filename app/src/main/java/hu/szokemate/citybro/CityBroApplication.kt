@@ -10,7 +10,7 @@ import hu.szokemate.citybro.di.ApplicationModule
 import hu.szokemate.citybro.di.DaggerAppComponent
 import timber.log.Timber
 
-class CityBroApplication : RainbowCakeApplication() {
+open class CityBroApplication : RainbowCakeApplication() {
 
     override lateinit var injector: AppComponent
 

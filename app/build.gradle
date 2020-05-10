@@ -5,13 +5,16 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
     defaultConfig {
         applicationId "hu.szokemate.citybro"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        testInstrumentationRunner "hu.szokemate.citybro.ApplicationTestRunner"
     }
     buildTypes {
         release {
@@ -32,6 +35,30 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    // Flavors
+    def environment = "environment"
+    flavorDimensions environment
+
+    productFlavors {
+        dev {
+            dimension environment
+            buildConfigField 'String', 'TELEPORT_API_BASE_URL', "\"https://api.teleport.org/api/\""
+        }
+        mock {
+            dimension environment
+        }
+    }
+
+    sourceSets {
+        test {
+            java.srcDir 'src/testDev'
+        }
+
+        androidTest {
+            java.srcDir 'src/androidTest'
+        }
     }
 }
 
@@ -72,9 +99,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    // OkHttp
-    implementation "com.squareup.okhttp3:okhttp:4.2.1"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.2.1"
+    def okhttp_version = '4.5.0'
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     // Retrofit
     def retrofit_version = '2.6.2'
@@ -96,7 +123,29 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
-    testImplementation 'junit:junit:4.12'
+    // Testing
+
+    // Test Framework
+    testImplementation 'junit:junit:4.13'
+
+    // Rainbow Cake - ViewModel testing
+    testImplementation "co.zsmb:rainbow-cake-test:$rainbow_cake_version"
+
+    // MockK - Mocks
+    testImplementation "io.mockk:mockk:1.9.3"
+
+    // Google Truth - Asserts
+    testImplementation "com.google.truth:truth:1.0.1"
+
+
+    // AndroidX Test
+    def espresso_version = '3.2.0'
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+
+    // Dagger
+    androidTestImplementation "com.google.dagger:dagger:$dagger_version"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
 }
