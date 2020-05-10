@@ -1,4 +1,4 @@
-package hu.szokemate.citybro.ui.lifequality
+package hu.szokemate.citybro.ui.citydetailscontainer.lifequality
 
 import co.zsmb.rainbowcake.withIOContext
 import javax.inject.Inject

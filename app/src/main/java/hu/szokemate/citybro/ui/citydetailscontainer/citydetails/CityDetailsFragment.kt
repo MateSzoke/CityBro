@@ -1,4 +1,4 @@
-package hu.szokemate.citybro.ui.citydetails
+package hu.szokemate.citybro.ui.citydetailscontainer.citydetails
 
 import android.os.Bundle
 import android.view.View
@@ -9,6 +9,7 @@ import co.zsmb.rainbowcake.extensions.applyArgs
 import co.zsmb.rainbowcake.extensions.exhaustive
 import co.zsmb.rainbowcake.navigation.extensions.requireString
 import hu.szokemate.citybro.R
+import hu.szokemate.citybro.domain.model.CityDetails
 import kotlinx.android.synthetic.main.fragment_city_details.*
 
 class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetailsViewModel> {
@@ -50,7 +51,6 @@ class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetail
 
     override fun onStart() {
         super.onStart()
-
         viewModel.load(cityId)
     }
 
@@ -58,19 +58,17 @@ class CityDetailsFragment : RainbowCakeFragment<CityDetailsViewState, CityDetail
         when (viewState) {
             Loading -> cityDetailsFragmentRoot.isVisible = false
             EmptyCityDetails -> showEmptyCityDetails()
-            is CityDetailsReady -> showCityDetailsReady(viewState)
+            is CityDetailsReady -> showCityDetailsReady(viewState.city)
         }.exhaustive
     }
 
     private fun showEmptyCityDetails() {
         cityDetailsFragmentRoot.isVisible = true
-        cityDetailsResultText.text = "Empty result"
     }
 
-    private fun showCityDetailsReady(viewState: CityDetailsReady) {
+    private fun showCityDetailsReady(city: CityDetails) {
         cityDetailsFragmentRoot.isVisible = true
-        cityDetailsResultText.text = viewState.city.toString()
-
+        cityFullNameText.text = city.fullName
     }
 
 }

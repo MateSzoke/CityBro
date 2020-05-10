@@ -7,4 +7,6 @@
     <string name="city_search_input_hint">Type city name here…</string>
     <string name="city_image_content_description">city image</string>
     <string name="favorite_cities_toolbar">Favorite cities</string>
+    <string name="city_details_tab_title">City details</string>
+    <string name="life_quality_tab_title">Life quality scores</string>
 </resources>

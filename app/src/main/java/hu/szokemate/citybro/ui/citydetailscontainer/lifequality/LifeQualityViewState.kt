@@ -1,4 +1,4 @@
-package hu.szokemate.citybro.ui.lifequality
+package hu.szokemate.citybro.ui.citydetailscontainer.lifequality
 
 sealed class LifeQualityViewState
 
