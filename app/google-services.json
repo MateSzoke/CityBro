@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "7520197070",
+    "firebase_url": "https://citybro-1cc15.firebaseio.com",
+    "project_id": "citybro-1cc15",
+    "storage_bucket": "citybro-1cc15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7520197070:android:26692477dabeb864f2739f",
+        "android_client_info": {
+          "package_name": "hu.szokemate.citybro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "7520197070-k8agfmri2nsojujbhe7e7gpfm4pbrsld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFek84yd9yk0SU1o5k0lQrZ5fXsk2GQzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "7520197070-k8agfmri2nsojujbhe7e7gpfm4pbrsld.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
